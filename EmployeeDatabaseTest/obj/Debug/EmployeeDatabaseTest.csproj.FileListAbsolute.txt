@@ -1,0 +1,14 @@
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\bin\Debug\EmployeeDatabaseTest.exe.config
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\bin\Debug\EmployeeDatabaseTest.exe
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\bin\Debug\EmployeeDatabaseTest.pdb
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest.csprojResolveAssemblyReference.cache
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\MainWindow.g.cs
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\App.g.cs
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest_MarkupCompile.cache
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest_MarkupCompile.lref
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\MainWindow.baml
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest.g.resources
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest.Properties.Resources.resources
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest.csproj.GenerateResource.Cache
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest.exe
+c:\users\steve\documents\visual studio 2017\Projects\EmployeeDatabaseTest\EmployeeDatabaseTest\obj\Debug\EmployeeDatabaseTest.pdb
