@@ -19,11 +19,25 @@ public class SqlManage
         con.ConnectionString = connectionString;
 
         con.Open();
-
+        // Find next employee ID
+        int newId;
         SqlCommand command = new SqlCommand();
         command.Connection = con;
         command.CommandType = CommandType.Text;
+        command.CommandText = "SELECT MAX(Id) FROM Employee2";
+        SqlDataReader reader = command.ExecuteReader();
+        if (reader.HasRows)
+        {
+          //  newId = reader.GetInt32(0);
+        }
+        else
+        {
+            newId = 1;
+        }
+        reader.Close();
 
+        // create new employee
+        
         // Build command string
         StringBuilder sb = new StringBuilder();
         sb.Append("INSERT INTO Employee2 (id, firstName, LastName, yearsOfService, active)");
@@ -119,5 +133,26 @@ public class SqlManage
         // execute
         command.ExecuteNonQuery();
         connection.Close();
+    }
+
+    public static void UpdateEmployee (int id, String firstName, String lastName)
+    {
+        SqlConnection connection = new SqlConnection();
+        connection.ConnectionString = connectionString;
+
+        connection.Open();
+
+        // Build command
+        SqlCommand command = new SqlCommand();
+        command.Connection = connection;
+        command.CommandType = CommandType.Text;
+        command.CommandText = "UPDATE Employee2 " +
+            "SET firstName = '" + firstName + "', lastName = '" + lastName +
+            "' WHERE id = " + id;
+        
+        // execute command
+        command.ExecuteNonQuery();
+        connection.Close();
+
     }
 }

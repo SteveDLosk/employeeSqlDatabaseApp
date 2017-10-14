@@ -25,6 +25,7 @@ namespace EmployeeDatabaseTest
         public MainWindow()
         {
             InitializeComponent();
+            // TODO: auto update the next employee id number
             nextEmployeeIdNum = 3;
         }
 
@@ -52,7 +53,26 @@ namespace EmployeeDatabaseTest
 
         private void updateEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            String firstName = inputFirstNameBox.Text;
+            String lastName = inputLastNameBox.Text;
+            try
+            {
+                int ID = Convert.ToInt32(inputEmployeeIdBox.Text);
+                SqlManage.UpdateEmployee(ID, firstName, lastName);
+                ClearAll();
+                outputTextBlock.Text = String.Format("Updated employee {0}, {1} {2}",
+                    ID, firstName, lastName);
+            }
+            catch (FormatException)
+            {
+                ClearAll();
+                outputTextBlock.Text = "Employee id must be a number";
+            }
+            catch (OverflowException)
+            {
+                ClearAll();
+                outputTextBlock.Text = "Employee id cannot be that large";
+            }
         }
 
         private void listAllEmployeesButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +91,7 @@ namespace EmployeeDatabaseTest
         {
             
                 List<TextBox> textBoxes = new List<TextBox>
-            { inputFirstNameBox, inputLastNameBox, inputYearsNameBox };
+            { inputFirstNameBox, inputLastNameBox, inputEmployeeIdBox };
 
                 foreach (var textbox in textBoxes)
                 {

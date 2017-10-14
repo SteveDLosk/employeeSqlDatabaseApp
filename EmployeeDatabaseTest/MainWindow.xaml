@@ -25,7 +25,7 @@
                      Width="150"/>
             <TextBox Name="inputLastNameBox"
                      Width="150"/>
-            <TextBox Name="inputYearsNameBox"
+            <TextBox Name="inputEmployeeIdBox"
                      Width="80"/>
         </StackPanel>
 
