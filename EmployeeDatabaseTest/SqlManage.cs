@@ -26,16 +26,7 @@ public class SqlManage
         command.CommandType = CommandType.Text;
         command.CommandText = "SELECT MAX(Id) FROM Employee2";
         SqlDataReader reader = command.ExecuteReader();
-        /*
-        if (reader.HasRows)
-        {
-          //  newId = reader.GetInt32(0);
-        }
-        else
-        {
-            newId = 1;
-        }
-        */
+        
         reader.Close();
 
         // create new employee

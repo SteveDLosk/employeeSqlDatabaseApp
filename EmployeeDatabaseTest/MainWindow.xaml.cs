@@ -25,8 +25,7 @@ namespace EmployeeDatabaseTest
         public MainWindow()
         {
             InitializeComponent();
-            // TODO: auto update the next employee id number
-            nextEmployeeIdNum = 3;
+            
         }
 
         private void createEmployeeButton_Click(object sender, RoutedEventArgs e)
