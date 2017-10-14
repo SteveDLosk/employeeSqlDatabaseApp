@@ -44,6 +44,14 @@ namespace EmployeeDatabaseTest
         {
             String firstName = inputFirstNameBox.Text;
             String lastName = inputLastNameBox.Text;
+
+            // verify valid name fields
+            if (String.IsNullOrEmpty(firstName) || String.IsNullOrEmpty(lastName))
+            {
+                ClearAll();
+                outputTextBlock.Text = "Please enter both first and last names";
+                return;
+            }
             SqlManage.DisableEmployee(firstName, lastName);
 
             ClearAll();

@@ -20,12 +20,13 @@ public class SqlManage
 
         con.Open();
         // Find next employee ID
-        int newId;
+        
         SqlCommand command = new SqlCommand();
         command.Connection = con;
         command.CommandType = CommandType.Text;
         command.CommandText = "SELECT MAX(Id) FROM Employee2";
         SqlDataReader reader = command.ExecuteReader();
+        /*
         if (reader.HasRows)
         {
           //  newId = reader.GetInt32(0);
@@ -34,6 +35,7 @@ public class SqlManage
         {
             newId = 1;
         }
+        */
         reader.Close();
 
         // create new employee
