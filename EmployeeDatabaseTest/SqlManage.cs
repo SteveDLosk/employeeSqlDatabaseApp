@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 public class SqlManage
@@ -15,41 +16,55 @@ public class SqlManage
         firstName = TruncateString(firstName);
         lastName = TruncateString(lastName);
 
-        SqlConnection con = new SqlConnection();
-        con.ConnectionString = connectionString;
+        try
+        {
 
-        con.Open();
-        // Find next employee ID
-        
-        SqlCommand command = new SqlCommand();
-        command.Connection = con;
-        command.CommandType = CommandType.Text;
-        command.CommandText = "SELECT MAX(Id) FROM Employee2";
-        SqlDataReader reader = command.ExecuteReader();
-        
-        reader.Close();
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = connectionString;
 
-        // create new employee
-        
-        // Build command string
-        StringBuilder sb = new StringBuilder();
-        sb.Append("INSERT INTO Employee2 (id, firstName, LastName, yearsOfService, active)");
-        sb.Append(" VALUES (");
-        sb.Append(id);
-        sb.Append(",'");
-        sb.Append(firstName);
-        sb.Append("', '");
-        sb.Append(lastName);
-        sb.Append("',0, 1)");
-        
-        String queryStr = sb.ToString();
-        Debug.WriteLine(queryStr);
-        command.CommandText = queryStr;
+            con.Open();
+            // Find next employee ID
 
-        // execute
-        command.ExecuteNonQuery();
-        con.Close();
-        
+            SqlCommand command = new SqlCommand();
+            command.Connection = con;
+            command.CommandType = CommandType.Text;
+            command.CommandText = "SELECT MAX(Id) FROM Employee2";
+            SqlDataReader reader = command.ExecuteReader();
+
+            reader.Close();
+
+            // create new employee
+
+            // Build command string
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INSERT INTO Employee2 (id, firstName, LastName, yearsOfService, active)");
+            sb.Append(" VALUES (");
+            sb.Append(id);
+            sb.Append(",'");
+            sb.Append(firstName);
+            sb.Append("', '");
+            sb.Append(lastName);
+            sb.Append("',0, 1)");
+
+            String queryStr = sb.ToString();
+            Debug.WriteLine(queryStr);
+            command.CommandText = queryStr;
+
+            // execute
+            command.ExecuteNonQuery();
+            con.Close();
+
+        }
+        catch (SqlException e)
+        {
+            // to be handled in application
+            throw (e);
+        }
+
+        catch (IOException e)
+        {
+            throw (e);
+        }
     }
 
     private static String TruncateString (String s)
@@ -83,29 +98,37 @@ public class SqlManage
         SqlConnection connection = new SqlConnection();
         connection.ConnectionString = connectionString;
 
-        connection.Open();
+        try {
+            connection.Open();
 
-        SqlCommand command = new SqlCommand();
-        command.Connection = connection;
-        command.CommandType = CommandType.Text;
-        command.CommandText = "Select * from Employee2 where active = 1";
-        SqlDataReader reader = command.ExecuteReader();
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = "Select * from Employee2 where active = 1";
+            SqlDataReader reader = command.ExecuteReader();
 
-        // check for empty table
-        if (reader.HasRows)
-        {
-            while (reader.Read())
+            // check for empty table
+            if (reader.HasRows)
             {
-                String nextLine = String.Format("Id: {0} First Name: {1} , Last Name {2}", 
-                reader["id"], reader["firstName"], reader["lastName"]);
-                returnedData += nextLine;
-                returnedData += "\n";
+                while (reader.Read())
+                {
+                    String nextLine = String.Format("Id: {0} First Name: {1} , Last Name {2}",
+                    reader["id"], reader["firstName"], reader["lastName"]);
+                    returnedData += nextLine;
+                    returnedData += "\n";
+                }
             }
-        }
-        reader.Close();
-        connection.Close();
+            reader.Close();
+            connection.Close();
 
-        return returnedData;
+            return returnedData;
+        }
+
+        catch (SqlException e)
+        {
+            return "Sql Exception: " + e.Message;
+        }
+       
     }
 
     public static void DisableEmployee (String firstName, String lastName)
@@ -113,39 +136,66 @@ public class SqlManage
         SqlConnection connection = new SqlConnection();
         connection.ConnectionString = connectionString;
 
-        connection.Open();
+        try
+        {
+            connection.Open();
 
-        SqlCommand command = new SqlCommand();
-        command.Connection = connection;
-        command.CommandType = CommandType.Text;
-        String text = String.Format("Update Employee2 set active = 0 where firstName LIKE '%{0}%'" +
-            " and lastName LIKE '%{1}%'", firstName, lastName);
-        command.CommandText = text;
-        
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandType = CommandType.Text;
+            String text = String.Format("Update Employee2 set active = 0 where firstName LIKE '%{0}%'" +
+                " and lastName LIKE '%{1}%'", firstName, lastName);
+            command.CommandText = text;
 
-        // execute
-        command.ExecuteNonQuery();
-        connection.Close();
+
+            // execute
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        catch (SqlException e)
+        {
+            // to be handled in application
+            throw (e);
+        }
+
+        catch (IOException e)
+        {
+            throw (e);
+        }
     }
 
     public static void UpdateEmployee (int id, String firstName, String lastName)
     {
-        SqlConnection connection = new SqlConnection();
-        connection.ConnectionString = connectionString;
 
-        connection.Open();
+        try
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = connectionString;
+            connection.Open();
 
-        // Build command
-        SqlCommand command = new SqlCommand();
-        command.Connection = connection;
-        command.CommandType = CommandType.Text;
-        command.CommandText = "UPDATE Employee2 " +
-            "SET firstName = '" + firstName + "', lastName = '" + lastName +
-            "' WHERE id = " + id;
-        
-        // execute command
-        command.ExecuteNonQuery();
-        connection.Close();
+            // Build command
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = "UPDATE Employee2 " +
+                "SET firstName = '" + firstName + "', lastName = '" + lastName +
+                "' WHERE id = " + id;
 
+            // execute command
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        catch (SqlException e)
+        {
+            // to be handled in application
+            throw (e);
+        }
+
+        catch (IOException e)
+        {
+            throw (e);
+        }
     }
 }

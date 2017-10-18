@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,13 +32,27 @@ namespace EmployeeDatabaseTest
 
         private void createEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-            String firstName = inputFirstNameBox.Text;
-            String lastName = inputLastNameBox.Text;
-            SqlManage.CreateEmployee(nextEmployeeIdNum, firstName, lastName);
-            nextEmployeeIdNum++;
+            try
+            {
+                String firstName = inputFirstNameBox.Text;
+                String lastName = inputLastNameBox.Text;
+                SqlManage.CreateEmployee(nextEmployeeIdNum, firstName, lastName);
+                nextEmployeeIdNum++;
 
-            ClearAll();
-            outputTextBlock.Text = firstName + " " + lastName + " added.";
+                ClearAll();
+                outputTextBlock.Text = firstName + " " + lastName + " added.";
+            }
+            catch (SqlException ex)
+            {
+                ClearAll();
+                outputTextBlock.Text = ex.Message;
+            }
+            catch (IOException ex)
+            {
+                ClearAll();
+                outputTextBlock.Text = ex.Message;
+            }
+
         }
 
         private void disableEmployeeButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +67,21 @@ namespace EmployeeDatabaseTest
                 outputTextBlock.Text = "Please enter both first and last names";
                 return;
             }
-            SqlManage.DisableEmployee(firstName, lastName);
+
+            try
+            {
+                SqlManage.DisableEmployee(firstName, lastName);
+            }
+            catch (SqlException ex)
+            {
+                ClearAll();
+                outputTextBlock.Text = ex.Message;
+            }
+            catch (IOException ex)
+            {
+                ClearAll();
+                outputTextBlock.Text = ex.Message;
+            }
 
             ClearAll();
             outputTextBlock.Text = String.Format("Disabled {0} {1}",
@@ -80,6 +110,17 @@ namespace EmployeeDatabaseTest
                 ClearAll();
                 outputTextBlock.Text = "Employee id cannot be that large";
             }
+            catch (SqlException ex)
+            {
+                ClearAll();
+                outputTextBlock.Text = ex.Message;
+            }
+            catch (IOException ex)
+            {
+                ClearAll();
+                outputTextBlock.Text = ex.Message;
+            }
+
         }
 
         private void listAllEmployeesButton_Click(object sender, RoutedEventArgs e)
